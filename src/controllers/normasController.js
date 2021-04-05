@@ -26,7 +26,7 @@ class normasController{
     }
     validarConexao(request,response){
         
-        response.json("Conectou normalmente")
+        response.json({message:"Conectado com sucesso!"})
         
 
     }
