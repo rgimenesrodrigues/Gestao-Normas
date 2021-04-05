@@ -24,10 +24,14 @@ class normasController{
         })
 
     }
-    validarConexao(request,response){
-        
-        response.json({message:"Conectado com sucesso!"})
-        
+    listarNorma(request,response){
+        const codigo  =  request.params
+        database.select("*").table("normas").where({codigo:codigo}).then(normas=>{ 
+            console.log(normas)
+            response.json({normas})
+        }).catch(error=>{
+            console.log(error)
+        })
 
     }
     
