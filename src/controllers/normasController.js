@@ -24,6 +24,12 @@ class normasController{
         })
 
     }
+    validarConexao(request,response){
+        
+        response.json("Conectou normalmente")
+        
+
+    }
     
 
 }
