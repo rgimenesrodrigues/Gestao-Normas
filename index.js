@@ -9,6 +9,7 @@ app.use(express.json())
 app.use(router)
 
 app.set("port",PORT)
+console.log('porta' + PORT)
 app.listen(PORT,()=>{
     console.log("Aplicação rodando na porta "+ PORT)
 })

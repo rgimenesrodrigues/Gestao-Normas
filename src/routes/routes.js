@@ -5,6 +5,6 @@ const normasController = require('../controllers/normasController')
 
 router.post('/v1/inserirNorma',normasController.inserirNorma)
 router.get('/v1/exibirNormas',normasController.listarNormas)
-router.get('/v1/exibirNorma/codigo',normasController.listarNorma)
+router.get('/v1/exibirNorma/:codigo',normasController.listarNorma)
 
 module.exports = router

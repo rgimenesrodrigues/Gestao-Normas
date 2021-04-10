@@ -25,8 +25,8 @@ class normasController{
 
     }
     listarNorma(request,response){
-        const codigo  =  request.params
-        database.select("*").table("normas").where({codigo:codigo}).then(normas=>{ 
+        const p_codigo  =  request.params.codigo
+        database.select("*").table("normas").where({codigo:p_codigo}).then(normas=>{ 
             console.log(normas)
             response.json({normas})
         }).catch(error=>{
