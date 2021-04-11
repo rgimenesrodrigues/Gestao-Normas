@@ -1,0 +1,178 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Gestão de Normas REST API",
+    "description": "Api para gestão de normas utilizada na POC para o projeto de conclusão para o curso de Arquitetura de Sistemas Distribuúidos da PUC-MG",
+    "contact": {
+      "email": "rodrigogimenesrodrigues@gmail.com"
+    }
+  },
+  "host": "gestaonormasapi.herokuapp.com",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "normas",
+      "description": "Informações sobre normas técnicas industriais"
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "securityDefinitions": {},
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/inserirNorma": {
+      "post": {
+        "tags": [],
+        "description": "Insere uma nova norma na base existente",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Informações sobre a nova norma",
+            "required": true,
+            "schema": {
+            "$ref": "#/definitions/Norma"
+          }
+          }  
+        ],
+        "responses": {
+          "201": {
+            "description": "Norma criada com sucesso !"
+          },
+          "400": {
+            "description": "Erro ao criar norma : Título não informado"
+          }
+        }
+      }
+    },
+    "/v1/atualizarNorma": {
+      "put": {
+        "tags": [],
+        "description": "Atualiza uma norma já existente na base",
+        "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Informações sobre a norma a ser atualizada",
+              "required": true,
+              "schema": {
+              "$ref": "#/definitions/Norma"
+            }
+            }
+        ],
+        "responses": {
+          "201": {
+            "description": "Norma atualizada com sucesso !"
+          },
+          "400": {
+            "description": "Erro ao atualizar norma : Código não encontrado"
+          }
+        }
+      }
+    },
+    "/v1/exibirNormas": {
+      "get": {
+        "tags": [],
+        "description": "Exibe todas as normas cadastradas",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Erro ao exibir normas : Tempo excedido"
+          }
+        }
+      }
+    },
+    "/v1/exibirNorma/{codigo}": {
+      "get": {
+        "tags": [],
+        "description": "Exibe a norma de acordo com o código pesquisado",
+        "parameters": [
+          {
+            "name": "codigo",
+            "in": "path",
+            "required": true,
+            "description": "Código da norma a ser pesquisada",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Erro ao exibir normas : Código inválido"
+          },
+          "404": {
+            "description": "Código não encontrado"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Norma": {
+      "type": "object",
+      "required":[
+        "codigo",
+        "titulo",
+        "palavras_chave",
+        "data_publicacao",
+        "status",
+        "arquivo"
+      ],
+      "properties": {
+        "codigo": {
+          "type": "string",
+          "description": "Código da norma",
+          "example": "NRXX"
+        },
+        "titulo": {
+          "type": "string",
+          "description": "Título da Norma",
+          "example": "Norma para reciclagem"
+        },
+        "objetivo": {
+          "type": "string",
+          "description": "Objetivo da Norma",
+          "example": "Objetivo da Norma"
+        },
+        "palavras_chave": {
+          "type": "string",
+          "description": "Palavras-Chave para pesquisa",
+          "example": "Reciclagem"
+        },
+        "data_publicacao": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Data da Publicação da Norma"
+        },
+        "status": {
+          "type": "string",
+          "description": "Status da norma",
+          "enum": [
+            "Ativo",
+            "Inativo",
+            "Em aprovação"
+          ],
+          "example": "Ativo"
+        },
+        "arquivo": {
+          "type": "string",
+          "description": "Arquivo para visualização da Norma",
+          "example": "ABC123"
+        }
+      }
+    }  
+  }
+}

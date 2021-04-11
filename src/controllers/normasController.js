@@ -1,40 +1,58 @@
 const database = require('../databases/connection')
-
+const jwt = require('jsonwebtoken');
 class normasController{
-    inserirNorma(request,response){
-        const {codigo,objetivo} =  request.body
-
-        console.log(codigo,objetivo)
-
-        database.insert({codigo,objetivo}).table("normas").then(data=>{ 
-            console.log(data)
-            response.json({message:"Norma criada com sucesso!"})
-        }).catch(error=>{
-            console.log(error)
-        })
-
-    }
-    listarNormas(request,response){
-        
+    listarNormas(request,response,next){
         database.select("*").table("normas").then(normas=>{ 
-            console.log(normas)
-            response.json({normas})
+           response.status(200).json({normas})
         }).catch(error=>{
-            console.log(error)
+            response.status(400).json({error})
         })
+        
 
     }
     listarNorma(request,response){
         const p_codigo  =  request.params.codigo
-        database.select("*").table("normas").where({codigo:p_codigo}).then(normas=>{ 
-            console.log(normas)
-            response.json({normas})
+        database.select("*").table("normas").where({codigo:p_codigo}).then(norma=>{ 
+            console.log(norma.length)
+            if(norma.length===0){
+                response.status(404).json({message:"Código não encontrado"})
+            }else{
+                response.status(200).json({norma})
+            }
+            
+            
         }).catch(error=>{
-            console.log(error)
+            response.status(400).json({error})
         })
 
     }
-    
+
+    inserirNorma(request,response){
+        const {codigo,titulo,objetivo,palavras_chave,data_pulicacao,status,arquivo} = request.body
+      
+        database.insert({codigo,titulo,objetivo,palavras_chave,data_pulicacao,status,arquivo}).table("normas").then(data=>{ 
+            response.status(201).json({message:"Norma criada com sucesso !"})
+      
+        }).catch(error=>{
+            console.log(error)    
+            response.status(400).json({error})
+        })
+
+    }
+
+    atualizarNorma(request,response,next){
+        verifyJWT()
+        const {codigo,titulo,objetivo,palavras_chave,data_pulicacao,status,arquivo} = request.body
+      
+        database.where({codigo:codigo}).update({codigo,titulo,objetivo,palavras_chave,data_pulicacao,status,arquivo}).table("normas").then(data=>{ 
+            response.status(201).json({message:"Norma atualizada com sucesso !"})
+      
+        }).catch(error=>{
+            console.log(error)
+            response.status(400).json({error})
+        })
+
+    }
 
 }
 module.exports = new normasController()
