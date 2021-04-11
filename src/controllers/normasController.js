@@ -28,9 +28,9 @@ class normasController{
     }
 
     inserirNorma(request,response){
-        const {codigo,titulo,objetivo,palavras_chave,data_pulicacao,status,arquivo} = request.body
+        const {codigo,titulo,objetivo,palavras_chave,data_publicacao,status,arquivo} = request.body
       
-        database.insert({codigo,titulo,objetivo,palavras_chave,data_pulicacao,status,arquivo}).table("normas").then(data=>{ 
+        database.insert({codigo,titulo,objetivo,palavras_chave,data_publicacao,status,arquivo}).table("normas").then(data=>{ 
             response.status(201).json({message:"Norma criada com sucesso !"})
       
         }).catch(error=>{
