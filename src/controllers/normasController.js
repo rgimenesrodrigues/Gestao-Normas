@@ -41,7 +41,6 @@ class normasController{
     }
 
     atualizarNorma(request,response,next){
-        verifyJWT()
         const {codigo,titulo,objetivo,palavras_chave,data_pulicacao,status,arquivo} = request.body
       
         database.where({codigo:codigo}).update({codigo,titulo,objetivo,palavras_chave,data_pulicacao,status,arquivo}).table("normas").then(data=>{ 
