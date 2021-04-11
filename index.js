@@ -18,10 +18,3 @@ router.get('/api-docs', swaggerUi.setup(swaggerFile));
 app.listen(PORT,()=>{
     console.log("Aplicação rodando na porta "+ PORT)
 })
-
-app.get('/v1/inserirNorma',(request,response)=>{
-    response.send("Inseriu a norma")
-    
-})
-
-module.exports = app;
