@@ -43,8 +43,9 @@ class normasController{
         //}
         
         const {codigo,titulo,objetivo,palavras_chave,data_publicacao,status,arquivo} = request.body
+        const externalId = codigo
       
-        database.insert({codigo,titulo,objetivo,palavras_chave,data_publicacao,status,arquivo}).table("normas").then(data=>{ 
+        database.insert({codigo,titulo,objetivo,palavras_chave,data_publicacao,status,arquivo,externalId}).table("normas").then(data=>{ 
             response.status(201).json({message:"Norma criada com sucesso !"})
       
         }).catch(error=>{
@@ -60,8 +61,9 @@ class normasController{
         //    return response.status(401).json({status: 'Erro de Autenticação', message: 'Não atutorizado.'})
         //}
         const {codigo,titulo,objetivo,palavras_chave,data_pulicacao,status,arquivo} = request.body
+        const externalId = codigo
       
-        database.where({codigo:codigo}).update({codigo,titulo,objetivo,palavras_chave,data_pulicacao,status,arquivo}).table("normas").then(data=>{ 
+        database.where({codigo:codigo}).update({codigo,titulo,objetivo,palavras_chave,data_pulicacao,status,arquivo,externalId}).table("normas").then(data=>{ 
             response.status(201).json({message:"Norma atualizada com sucesso !"})
       
         }).catch(error=>{
