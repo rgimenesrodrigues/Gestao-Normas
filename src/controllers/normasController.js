@@ -38,6 +38,10 @@ class normasController{
     }
 
     inserirNorma(request,response){
+        if (!request.header('apiKey') || request.header('apiKey') !== process.env.API_KEY) {
+            return response.status(401).json({status: 'Erro de Autenticação', message: 'Não atutorizado.'})
+        }
+        
         const {codigo,titulo,objetivo,palavras_chave,data_publicacao,status,arquivo} = request.body
       
         database.insert({codigo,titulo,objetivo,palavras_chave,data_publicacao,status,arquivo}).table("normas").then(data=>{ 
@@ -51,6 +55,10 @@ class normasController{
     }
 
     atualizarNorma(request,response,next){
+        
+        if (!request.header('apiKey') || request.header('apiKey') !== process.env.API_KEY) {
+            return response.status(401).json({status: 'Erro de Autenticação', message: 'Não atutorizado.'})
+        }
         const {codigo,titulo,objetivo,palavras_chave,data_pulicacao,status,arquivo} = request.body
       
         database.where({codigo:codigo}).update({codigo,titulo,objetivo,palavras_chave,data_pulicacao,status,arquivo}).table("normas").then(data=>{ 
