@@ -7,8 +7,6 @@ const swaggerUi = require('swagger-ui-express')
 const swaggerFile = require('./src/routes/swagger-output.json')
 const helmet = require('helmet')
 const compression = require('compression')
-const rateLimit = require('express-rate-limit')
-const {body, check} = require('express-validator')
 require('dotenv/config');
 
 const isProduction = process.env.NODE_ENV === 'production'
@@ -23,17 +21,6 @@ app.set("port",PORT)
 router.use('/api-docs', swaggerUi.serve);
 router.get('/api-docs', swaggerUi.setup(swaggerFile));
 
-
-const origin = {
-  origin: isProduction ? 'https://www.salesforce.com' : '*',
-}
-
-const limiter = rateLimit({
-    windowMs: 1 * 60 * 1000, // 1 minute
-    max: 60, // 60 requests,
-  })
-
-app.use(cors(origin))
 app.listen(PORT,()=>{
     console.log("Aplicação rodando na porta "+ PORT)
 })
