@@ -3,9 +3,9 @@ const jwt = require('jsonwebtoken');
 class normasController{
 
     listarNormas(request,response,next){
-        if (!request.header('apiKey') || request.header('apiKey') !== process.env.API_KEY) {
-            return response.status(401).json({status: 'Erro de Autenticação', message: 'Não atutorizado.'})
-        }
+        //if (!request.header('apiKey') || request.header('apiKey') !== process.env.API_KEY) {
+        //    return response.status(401).json({status: 'Erro de Autenticação', message: 'Não atutorizado.'})
+        //}
 
         database.select("*").table("normas").then(normas=>{ 
            response.status(200).json({normas})
@@ -17,9 +17,9 @@ class normasController{
     }
     listarNorma(request,response){
         
-        if (!request.header('apiKey') || request.header('apiKey') !== process.env.API_KEY) {
-            return response.status(401).json({status: 'Erro de Autenticação', message: 'Não atutorizado.'})
-        }
+        //if (!request.header('apiKey') || request.header('apiKey') !== process.env.API_KEY) {
+        //    return response.status(401).json({status: 'Erro de Autenticação', message: 'Não atutorizado.'})
+        //}
 
         const p_codigo  =  request.params.codigo
         database.select("*").table("normas").where({codigo:p_codigo}).then(norma=>{ 
@@ -38,9 +38,9 @@ class normasController{
     }
 
     inserirNorma(request,response){
-        if (!request.header('apiKey') || request.header('apiKey') !== process.env.API_KEY) {
-            return response.status(401).json({status: 'Erro de Autenticação', message: 'Não atutorizado.'})
-        }
+        //if (!request.header('apiKey') || request.header('apiKey') !== process.env.API_KEY) {
+        //    return response.status(401).json({status: 'Erro de Autenticação', message: 'Não atutorizado.'})
+        //}
         
         const {codigo,titulo,objetivo,palavras_chave,data_publicacao,status,arquivo} = request.body
       
@@ -56,9 +56,9 @@ class normasController{
 
     atualizarNorma(request,response,next){
         
-        if (!request.header('apiKey') || request.header('apiKey') !== process.env.API_KEY) {
-            return response.status(401).json({status: 'Erro de Autenticação', message: 'Não atutorizado.'})
-        }
+        //if (!request.header('apiKey') || request.header('apiKey') !== process.env.API_KEY) {
+        //    return response.status(401).json({status: 'Erro de Autenticação', message: 'Não atutorizado.'})
+        //}
         const {codigo,titulo,objetivo,palavras_chave,data_pulicacao,status,arquivo} = request.body
       
         database.where({codigo:codigo}).update({codigo,titulo,objetivo,palavras_chave,data_pulicacao,status,arquivo}).table("normas").then(data=>{ 
